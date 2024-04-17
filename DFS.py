@@ -16,6 +16,7 @@ def create_graph():
         neighbors = input(f"Enter neighbors of {vertex} (comma-separated): ").split(',')
         graph[vertex] = [neighbor.strip() for neighbor in neighbors]
     return graph
+
 if __name__ == "__main__":
     user_graph = create_graph()
     start_vertex = input("Enter the starting vertex for DFS: ")
