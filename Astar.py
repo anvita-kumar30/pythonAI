@@ -1,6 +1,5 @@
 import heapq
 
-
 class Node:
     def __init__(self, name, value, heuristic):
         self.name = name
