@@ -1,42 +1,44 @@
-import random
+import math
 
-
-def objective_function(x):
-    # Example objective function: maximize f(x) = -x^2
-    return -x ** 2
-
-
-def hill_climbing(initial_position, step_size, max_iterations):
-    current_position = initial_position
-    current_value = objective_function(current_position)
-
-    for iteration in range(max_iterations):
-        # Generate a neighbor within the specified step size
-        neighbor_position = current_position + random.uniform(-step_size, step_size)
-        # Evaluate the objective function for the neighbor
-        neighbor_value = objective_function(neighbor_position)
-
-        # If the neighbor has a higher value, move to the neighbor
-        if neighbor_value > current_value:
-            current_position = neighbor_position
-            current_value = neighbor_value
-
-    return current_position, current_value
-
-
-def main():
-    # Initial parameters
-    initial_position = random.uniform(-10, 10)
+def hill_climbing(objective_function):
+    # Initial point
+    x = 0.0
     step_size = 0.1
-    max_iterations = 100
 
-    # Run the Hill Climbing algorithm
-    final_position, max_value = hill_climbing(initial_position, step_size, max_iterations)
+    while True:
+        current_value = objective_function(x)
+        next_value1 = objective_function(x + step_size)
+        next_value2 = objective_function(x - step_size)
 
-    print(f"Initial Position: {initial_position}")
-    print(f"Final Position: {final_position}")
-    print(f"Maximum Value: {max_value}")
+        if next_value1 > current_value:
+            x += step_size
+        elif next_value2 > current_value:
+            x -= step_size
+        else:
+            break
 
+    optimal_x = x
+    optimal_y = objective_function(optimal_x)
+    return optimal_x, optimal_y
 
-if __name__ == "__main__":
-    main()
+# Define objective functions
+def sin_function(x):
+    return math.sin(x)
+
+def quadratic_function(x):
+    return -x**2
+
+def quadratic_function2(x):
+    return -5*x**2 + 3*x + 6
+
+# Perform hill climbing for y = sin(x)
+optimal_x1, optimal_y1 = hill_climbing(sin_function)
+print("Optimal Solution (y = sin(x)): x =", optimal_x1, ", y =", optimal_y1)
+
+# Perform hill climbing for y = -x^2
+optimal_x2, optimal_y2 = hill_climbing(quadratic_function)
+print("Optimal Solution (y = -x^2): x =", optimal_x2, ", y =", optimal_y2)
+
+# Perform hill climbing for y = -5x^2 + 3x + 6
+optimal_x3, optimal_y3 = hill_climbing(quadratic_function2)
+print("Optimal Solution (y = -5x^2 + 3x + 6): x =", optimal_x3, ", y =", optimal_y3)
