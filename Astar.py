@@ -1,5 +1,3 @@
-import heapq
-
 class Node:
     def __init__(self, name, value, heuristic):
         self.name = name
@@ -18,7 +16,6 @@ def build_tree():
     root = Node(root_name, root_value, root_heuristic)
     queue = [root]
     while queue:
-        print("Queue:", [(node.name, node.value, node.heuristic) for node in queue])
         current_node = queue.pop(0)
         num_children = int(input(f"Enter the number of children for node {current_node.name} ({current_node.value}): "))
         for i in range(num_children):
@@ -35,19 +32,27 @@ def astar(root, start, goal):
     open_set = [root]
     closed_set = set()
     path = []
-
+    i = 0
     while open_set:
-        print("Open Set:", [(node.name, node.value, node.heuristic) for node in open_set])
-        current_node = heapq.heappop(open_set)
+        print("Open Set (Nodes to Explore) after iteration {i+1}:")
+        print([(node.name, node.value, node.heuristic) for node in open_set])
+        print("Closed Set (Nodes Fully Explored) after iteration {i+1}:")
+        print([(node.name, node.value, node.heuristic) for node in closed_set])
+        print("------------------------------")
+        current_node = open_set.pop(0)
         path.append((current_node.name, current_node.value))
+        i = i + 1
         if current_node.name == goal:
             print("Goal reached!")
             break
+
         closed_set.add(current_node)
+
         for child in current_node.children:
             if child not in closed_set and child not in open_set:
-                heapq.heappush(open_set, child)
-        print("Path:", path)
+                open_set.append(child)
+                # Optionally, you can sort open_set based on heuristic value:
+                open_set.sort(key=lambda x: x.heuristic)
     return path
 
 
@@ -55,7 +60,15 @@ def main():
     root = build_tree()
     start_node = input("Enter the start node: ")
     goal_node = input("Enter the goal node: ")
-    print("A* traversal:", astar(root, start_node, goal_node))
+
+    print("Starting A* traversal from node", start_node)
+    print("Goal node is", goal_node)
+    print("------------------------------")
+
+    final_path = astar(root, start_node, goal_node)
+
+    print("------------------------------")
+    print("Final Path (Nodes Visited):", final_path)
 
 
 if __name__ == "__main__":
