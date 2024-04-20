@@ -1,9 +1,8 @@
 import random
 
-POPULATION_SIZE = 6
+POPULATION_SIZE = 7
 GENES = '0123456789'
 TARGET = 30
-GENE_LENGTH = 4  # Number of genes in each chromosome representing variables a, b, c, d
 
 
 class Chromosome:
@@ -13,35 +12,22 @@ class Chromosome:
 
     @classmethod
     def create_chromosome(cls):
-        return [random.choice(GENES) for _ in range(GENE_LENGTH)]
+        return [random.choice(GENES) for _ in range(4)]
 
     def mate(self, partner):
-        child_genes = [self.genes[i] if random.random() < 0.5 else partner.genes[i] for i in range(GENE_LENGTH)]
+        child_genes = [self.genes[i] if random.random() < 0.5 else partner.genes[i] for i in range(4)]
         return Chromosome(child_genes)
 
     def calculate_fitness(self):
-        # Calculate the fitness based on the optimization function F(x)
-        total_value = sum((i + 1) * int(gene) for i, gene in enumerate(self.genes))
-        return abs(total_value - TARGET)
+        return abs(sum((i + 1) * int(gene) for i, gene in enumerate(self.genes)) - TARGET)
 
 
-def initialize_population():
-    return [Chromosome(Chromosome.create_chromosome()) for _ in range(POPULATION_SIZE)]
-
-
-def evolve_population(population):
+def main():
+    population = [Chromosome(Chromosome.create_chromosome()) for _ in range(POPULATION_SIZE)]
     iterations = 0
 
     while iterations < 50:
         population = sorted(population, key=lambda x: x.fitness)
-
-        # Print initial population
-        if iterations == 0:
-            print("Initial Population:")
-            for i, chromosome in enumerate(population, 1):
-                print(f"Chromosome {i}: {chromosome.genes}")
-
-        # Check for optimal solution
         if population[0].fitness == 0:
             break
 
@@ -60,27 +46,21 @@ def evolve_population(population):
         population = new_population
         iterations += 1
 
-    return population
+    # Print the initial and final chromosomes
+    print("Initial Chromosomes:")
+    for i, chromosome in enumerate(population, 1):
+        print(f"Chromosome {i}: {chromosome.genes}")
 
+    print("\nFinal Chromosomes:")
+    for i, chromosome in enumerate(population, 1):
+        print(f"Chromosome {i}: {chromosome.genes}")
 
-def main():
-    # Initialize the population
-    population = initialize_population()
-
-    # Evolve the population using genetic algorithm
-    final_population = evolve_population(population)
-
-    # Print final population
-    print("\nFinal Population:")
-    for i, chromosome in enumerate(final_population, 1):
-        print(f"Chromosome {i}: {chromosome.genes} (Fitness: {chromosome.fitness})")
-
-    # Find the best chromosome (optimal solution)
-    best_chromosome = min(final_population, key=lambda x: x.fitness)
-    print(f"\nBest Chromosome (Optimal Solution): {best_chromosome.genes}")
-    print(f"Fitness: {best_chromosome.fitness}")
-    values = [(i + 1) * int(gene) for i, gene in enumerate(best_chromosome.genes)]
-    print(f"Values of ['a', 'b', 'c', 'd']: {values}")
+    # Print the best solution and values of a, b, c, d
+    best_chromosome = population[0]
+    print(f"\nBest Chromosome: {best_chromosome.genes}")
+    print(f"Best Solution: {TARGET - best_chromosome.fitness}")
+    print(f"Values of ['a', 'b', 'c', 'd']: {tuple(int(gene) for gene in best_chromosome.genes)}")
+    print(f"Number of Iterations: {iterations}")
 
 
 if __name__ == '__main__':
