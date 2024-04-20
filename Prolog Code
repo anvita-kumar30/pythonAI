@@ -1,0 +1,24 @@
+female(nandini).
+female(anjali).
+female(naina).
+female(pooja).
+male(yash).
+male(rahul).
+male(rohan).
+male(krish).
+male(ram).
+parent(nandini,rahul).
+parent(nandini,rohan).
+parent(yash,rahul).
+parent(yash,rohan).
+parent(anjali,krish).
+parent(anjali,pooja).
+parent(rahul,krish).
+parent(rahul,pooja).
+parent(naina,ram).
+parent(rohan,ram).
+mother(X,Y) :- parent(X,Y),female(X).
+father(X,Y) :- parent(X,Y),male(X).
+haschild(X) :- parent(X,_).
+sister(X,Y) :- parent(Z,X),parent(Z,Y),female(X),X\==Y.
+brother(X,Y) :- parent(Z,X),parent(Z,Y),male(X),X\==Y.
