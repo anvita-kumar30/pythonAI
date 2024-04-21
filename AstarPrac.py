@@ -4,7 +4,6 @@ class Node:
         self.value = value
         self.heuristic = heuristic
         self.children = []
-
     def __lt__(self, other):
         return (self.value + self.heuristic) < (other.value + other.heuristic)
 
@@ -31,21 +30,22 @@ def astar(root, start, goal):
     closed_list = []
     i = 0
     while open_list:
-        print("Open Set (Nodes to Explore) after iteration {i+1}:")
+        print(f"Open Set (Nodes to Explore) after iteration {i + 1}:")
         print([(node.name, node.value, node.heuristic) for node in open_list])
-        print("Closed Set (Nodes Fully Explored) after iteration {i+1}:")
-        print([(node.name, node.value, node.heuristic) for node in closed_list])
+        print(f"Closed Set (Nodes Fully Explored) after iteration {i + 1}:")
+        print([node.name for node in closed_list])
         print("------------------------------")
         current_node = open_list.pop(0)
-        closed_list.append((current_node.name))
-        i = i + 1
+        closed_list.append(current_node)
+        i += 1
         if current_node.name == goal:
             print("Goal reached!")
             break
         if current_node.children:
-            sorted_children = sorted(current_node.children, key=lambda x: x.value + x.heuristic)
-            open_list = sorted_children + open_list
-    final_path = [(node.name, node. value, node.heuristic) for node in closed_list]
+            open_list.extend(current_node.children)
+            # Sort open_list based on __lt__ method (value + heuristic comparison)
+            open_list.sort()
+    final_path = [node.name for node in closed_list]
     return final_path
 
 def main():
@@ -57,7 +57,7 @@ def main():
     print("------------------------------")
     final_path = astar(root, start_node, goal_node)
     print("------------------------------")
-    print("Final Path:", final_path)
+    print("Final Path (Nodes Visited):", final_path)
 
 if __name__ == "__main__":
     main()
