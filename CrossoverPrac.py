@@ -1,7 +1,8 @@
 import random
+
 POPULATION_SIZE = 6
 CHROMOSOME_LENGTH = 5  # Length of each chromosome in bits (for binary representation)
-MUTATION_RATE = 0.1  # Mutation rate (10%)
+CROSSOVER_RATE = 0.25  # Crossover rate (25%)
 # Define your initial binary-encoded chromosomes
 population = [
     [0, 1, 1, 0, 0],  # chromosome 1
@@ -23,36 +24,37 @@ def calculate_fitness(binary_chromosome):
     # Calculate the fitness based on the equation y = x^2 + 3x + 5
     fitness_value = x ** 2 + 3 * x + 5
     return fitness_value
-def mutate(chromosome):
-    # Perform mutation on a chromosome with a given mutation rate
-    mutated_chromosome = []
-    for bit in chromosome:
-        if random.random() < MUTATION_RATE:
-            # Flip the bit (mutate)
-            mutated_bit = 1 - bit
-        else:
-            mutated_bit = bit
-        mutated_chromosome.append(mutated_bit)
-    return mutated_chromosome
+def crossover(parent1, parent2):
+    # Perform single-point crossover between two parent chromosomes
+    if random.random() < CROSSOVER_RATE:
+        crossover_point = random.randint(1, CHROMOSOME_LENGTH - 1)
+        child1 = parent1[:crossover_point] + parent2[crossover_point:]
+        child2 = parent2[:crossover_point] + parent1[crossover_point:]
+    else:
+        child1 = parent1
+        child2 = parent2
+    return child1, child2
 def main():
-    # Perform one iteration of mutation on the population
-    mutated_population = []
-    for chromosome in population:
-        mutated_chromosome = mutate(chromosome)
-        mutated_population.append(mutated_chromosome)
-    # Display mutated population and calculate fitness
-    print("Child after crossover:")
+    # Perform one iteration of crossover
+    new_population = []
+    for i in range(0, len(population), 2):
+        if i + 1 < len(population):
+            parent1 = population[i]
+            parent2 = population[i + 1]
+            child1, child2 = crossover(parent1, parent2)
+            new_population.append(child1)
+            new_population.append(child2)
+    print("Initial Population:")
     for i, chromosome in enumerate(population):
         x_value = binary_to_decimal(chromosome)
-        print(f"Chromosome {i + 1}: {chromosome} -> X value: {x_value}")
-    print("\nChild after flipping (Mutated Population):")
+        print(f"Chromosome {i + 1}: {chromosome} -> Crossover point (decimal value): {x_value}")
+    print("\nChild After Crossover (One Iteration):")
     fitness_values = []
-    for i, chromosome in enumerate(mutated_population):
-        x_value = binary_to_decimal(chromosome)
+    for i, chromosome in enumerate(new_population):
         fitness = calculate_fitness(chromosome)
         fitness_values.append(fitness)
+        x_value = binary_to_decimal(chromosome)
         print(f"Chromosome {i + 1}: {chromosome} -> X value: {x_value} -> Fitness value: {fitness}")
-    # Calculate fitness statistics
     total_fitness = sum(fitness_values)
     average_fitness = total_fitness / len(population)
     max_fitness = max(fitness_values)
