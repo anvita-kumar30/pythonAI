@@ -2,7 +2,6 @@ class Node:
     def __init__(self, name):
         self.name = name
         self.children = []
-
 def build_tree():
     root_name = input("Enter the name for the root node: ")
     root = Node(root_name)
@@ -16,7 +15,6 @@ def build_tree():
             current_node.children.append(child_node)
             queue.append(child_node)
     return root
-
 def dfs(root, start, goal):
     open_list = [root]
     closed_list = []
@@ -38,7 +36,6 @@ def dfs(root, start, goal):
             open_list = sorted_children + open_list
     final_path = [(node.name) for node in closed_list]
     return final_path
-
 def main():
     root = build_tree()
     start_node = input("Enter the start node: ")
@@ -49,6 +46,5 @@ def main():
     final_path = dfs(root, start_node, goal_node)
     print("------------------------------")
     print("Final Path (Nodes Visited):", final_path)
-
 if __name__ == "__main__":
     main()

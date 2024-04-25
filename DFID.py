@@ -2,7 +2,6 @@ class Node:
     def __init__(self, name):
         self.name = name
         self.children = []
-
 def build_tree():
     root_name = input("Enter the name for the root node: ")
     root = Node(root_name)
@@ -16,7 +15,6 @@ def build_tree():
             current_node.children.append(child_node)
             queue.append(child_node)
     return root
-
 def dls(root, goal, depth_limit, current_depth=0):
     open_list = [(root, current_depth)]
     closed_list = []
@@ -30,7 +28,6 @@ def dls(root, goal, depth_limit, current_depth=0):
         current_node, node_depth = open_list.pop(0)
         closed_list.append(current_node)
         i += 1
-
         if current_node.name == goal:
             print("Goal reached!")
             break
@@ -39,7 +36,6 @@ def dls(root, goal, depth_limit, current_depth=0):
             open_list = [(child, node_depth + 1) for child in sorted_children] + open_list
     final_path = [node.name for node in closed_list]
     return final_path
-
 def dfid(root, start, goal):
     max_depth = 0
     while True:
@@ -49,7 +45,6 @@ def dfid(root, start, goal):
         if goal in final_path:
             return final_path
         max_depth += 1
-
 def main():
     root = build_tree()
     start_node = input("Enter the start node: ")
@@ -63,6 +58,5 @@ def main():
         print("Path Found:", final_path)
     else:
         print("Goal node not reachable within the depth limit.")
-
 if __name__ == "__main__":
     main()

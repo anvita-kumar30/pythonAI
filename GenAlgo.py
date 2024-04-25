@@ -27,11 +27,9 @@ class Chromosome:
             for idx, gene in enumerate(self.genes)
         ]
         return Chromosome(mutated_genes)
-
 def selection(population):
     sorted_population = sorted(population, key=lambda x: x.fitness)
     return sorted_population[:2]
-
 def main():
     # Initialize population with specific chromosomes
     population = [
@@ -64,6 +62,5 @@ def main():
     print(f"Best Solution: {sum((i + 1) * int(gene) for i, gene in enumerate(best_solution.genes))}")
     print(f"Values of ['a', 'b', 'c', 'd']: {tuple(int(gene) for gene in best_solution.genes)}")
     print(f"Number of Iterations: {iteration}")
-
 if __name__ == "__main__":
     main()

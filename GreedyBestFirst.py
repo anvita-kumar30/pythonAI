@@ -3,7 +3,6 @@ class Node:
         self.name = name
         self.heuristic = heuristic
         self.children = []
-
 def build_tree():
     root_name = input("Enter the name for the root node: ")
     root_heuristic = float(input("Enter the heuristic value for the root node: "))
@@ -19,7 +18,6 @@ def build_tree():
             current_node.children.append(child_node)
             queue.append(child_node)
     return root
-
 def gbfs(root, start, goal):
     open_list = [root]
     closed_list = []
@@ -40,7 +38,6 @@ def gbfs(root, start, goal):
             open_list = sorted_children + open_list
     final_path = [node.name for node in closed_list]
     return final_path
-
 def main():
     root = build_tree()
     start_node = input("Enter the start node: ")
@@ -51,6 +48,5 @@ def main():
     final_path = gbfs(root, start_node, goal_node)
     print("------------------------------")
     print("Final Path:", final_path)
-
 if __name__ == "__main__":
     main()

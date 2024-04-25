@@ -16,7 +16,6 @@ def hill_climbing(objective_function):
     optimal_x = x
     optimal_y = objective_function(optimal_x)
     return optimal_x, optimal_y
-
 # Define objective functions
 def sin_function(x):
     return math.sin(x)
@@ -24,7 +23,6 @@ def quadratic_function(x):
     return -x**2
 def quadratic_function2(x):
     return -5*x**2 + 3*x + 6
-
 # Perform hill climbing for y = sin(x)
 optimal_x1, optimal_y1 = hill_climbing(sin_function)
 print("Optimal Solution (y = sin(x)): x =", optimal_x1, ", y =", optimal_y1)
