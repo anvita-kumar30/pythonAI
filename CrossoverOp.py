@@ -61,6 +61,5 @@ def main():
     print(f"Sum of Fitness Values: {total_fitness}")
     print(f"Average of Fitness Values: {average_fitness}")
     print(f"Maximum Fitness Value: {max_fitness}")
-
 if __name__ == "__main__":
     main()
