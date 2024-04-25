@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="241faf4b-fda0-4334-8675-40b627a6bf18" name="Changes" comment="init">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PracticeBFSgbfsAstar.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PracticeDFSDLSDFID.py" beforeDir="false" afterPath="$PROJECT_DIR$/PracticeDFSDLSDFID.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -345,7 +345,21 @@
       <option name="project" value="LOCAL" />
       <updated>1714058730382</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="init">
+      <created>1714059924054</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1714059924054</updated>
+    </task>
+    <task id="LOCAL-00028" summary="init">
+      <created>1714060391295</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1714060391295</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
