@@ -4,8 +4,8 @@ class Node:
         self.value = value
         self.heuristic = heuristic
         self.children = []
-    def __lt__(self, other):
-        return (self.value + self.heuristic) < (other.value + other.heuristic)
+    # def __lt__(self, other):
+    #     return (self.value + self.heuristic) < (other.value + other.heuristic)
 
 def build_tree():
     root_name = input("Enter the name for the root node: ")
@@ -41,10 +41,13 @@ def astar(root, start, goal):
         if current_node.name == goal:
             print("Goal reached!")
             break
+        # if current_node.children:
+        #     open_list.extend(current_node.children)
+        #     # Sort open_list based on __lt__ method (value + heuristic comparison)
+        #     open_list.sort()
         if current_node.children:
-            open_list.extend(current_node.children)
-            # Sort open_list based on __lt__ method (value + heuristic comparison)
-            open_list.sort()
+            sorted_children = sorted(current_node.children, key=lambda x: x.heuristic + x.value)
+            open_list = sorted_children + open_list
     final_path = [node.name for node in closed_list]
     return final_path
 
